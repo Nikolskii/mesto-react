@@ -1,38 +1,14 @@
-import logo from './logo.svg';
-import './index.css';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import '../index.css';
 
 function App() {
   return (
-    <body className="page">
-      <header className="header">
-        <img
-          className="header__logo"
-          src="<%=require('./images/header-logo.svg')%>"
-          alt="Логотип проекта Место"
-        />
-      </header>
-      <main className="content">
-        <section className="profile">
-          <img className="profile__avatar" src="#" alt="Аватар" />
-          <button className="profile__update-button"></button>
-          <h1 className="profile__title">Жак-Ив Кусто</h1>
-          <button
-            className="profile__edit-button"
-            type="button"
-            aria-label="Редактировать профиль"
-          ></button>
-          <p className="profile__subtitle">Исследователь океана</p>
-          <button
-            className="profile__add-button"
-            type="button"
-            aria-label="Добавить фотографию"
-          ></button>
-        </section>
-        <section className="elements" aria-label="Места"></section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">&copy; 2022 Mesto Russia</p>
-      </footer>
+    <div className="page">
+      <Header />
+      <Main />
+      <Footer />
       <section
         className="popup popup_purpose_edit-profile"
         aria-label="Редактирование профиля"
@@ -230,7 +206,7 @@ function App() {
           <p class="element__like-counter"></p>
         </article>
       </template>
-    </body>
+    </div>
   );
 }
 

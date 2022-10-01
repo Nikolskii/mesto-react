@@ -1,9 +1,9 @@
 import logo from './logo.svg';
-import './App.css';
+import './index.css';
 
 function App() {
   return (
-    <>
+    <body className="page">
       <header className="header">
         <img
           className="header__logo"
@@ -33,7 +33,6 @@ function App() {
       <footer className="footer">
         <p className="footer__copyright">&copy; 2022 Mesto Russia</p>
       </footer>
-
       <section
         className="popup popup_purpose_edit-profile"
         aria-label="Редактирование профиля"
@@ -86,7 +85,6 @@ function App() {
           ></button>
         </div>
       </section>
-
       <section
         className="popup popup_purpose_add-card"
         aria-label="Новое место"
@@ -232,7 +230,7 @@ function App() {
           <p class="element__like-counter"></p>
         </article>
       </template>
-    </>
+    </body>
   );
 }
 

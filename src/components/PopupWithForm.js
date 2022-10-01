@@ -1,7 +1,5 @@
 function PopupWithForm(props) {
-  return (
-    
-  );
+  return;
 }
 
 export default PopupWithForm;

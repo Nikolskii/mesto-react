@@ -116,6 +116,7 @@ function App() {
           ></button>
         </div>
       </section>
+      {/* no */}
       <section
         className="popup popup_purpose_open-image"
         aria-label="Большое изображение"

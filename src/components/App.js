@@ -4,6 +4,24 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import '../index.css';
 
+// function handleEditAvatarClick() {
+//   document
+//     .querySelector('.popup_purpose_update-avatar')
+//     .classList.add('popup_opened');
+// }
+
+// function handleEditProfileClick() {
+//   document
+//     .querySelector('.popup_purpose_edit-profile')
+//     .classList.add('popup_opened');
+// }
+
+// function handleAddPlaceClick() {
+//   document
+//     .querySelector('.popup_purpose_add-card')
+//     .classList.add('popup_opened');
+// }
+
 function App() {
   return (
     <div className="page">
@@ -128,23 +146,6 @@ function App() {
           </button>
         }
       />
-
-      <section
-        className="popup popup_purpose_open-image"
-        aria-label="Большое изображение"
-      >
-        <div className="popup__container-image">
-          <figure className="popup__figure">
-            <img className="popup__image" src="#" alt="alt" />
-            <figcaption className="popup__caption"></figcaption>
-          </figure>
-          <button
-            className="popup__close-button"
-            type="button"
-            aria-label="Закрыть"
-          ></button>
-        </div>
-      </section>
 
       <template class="template-element">
         <article class="element">

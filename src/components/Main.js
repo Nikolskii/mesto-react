@@ -1,24 +1,24 @@
 import profileAvatar from '../images/profile-avatar.jpg';
 
+function handleEditAvatarClick() {
+  document
+    .querySelector('.popup_purpose_update-avatar')
+    .classList.add('popup_opened');
+}
+
+function handleEditProfileClick() {
+  document
+    .querySelector('.popup_purpose_edit-profile')
+    .classList.add('popup_opened');
+}
+
+function handleAddPlaceClick() {
+  document
+    .querySelector('.popup_purpose_add-card')
+    .classList.add('popup_opened');
+}
+
 function Main() {
-  function handleEditAvatarClick() {
-    document
-      .querySelector('.popup_purpose_update-avatar')
-      .classList.add('popup_opened');
-  }
-
-  function handleEditProfileClick() {
-    document
-      .querySelector('.popup_purpose_edit-profile')
-      .classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    document
-      .querySelector('.popup_purpose_add-card')
-      .classList.add('popup_opened');
-  }
-
   return (
     <main className="content">
       <section className="profile">

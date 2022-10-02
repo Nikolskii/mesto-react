@@ -53,8 +53,8 @@ function App() {
               type="text"
               name="form__input_type_name"
               id="form__input_type_name"
-              minlength="2"
-              maxlength="40"
+              minLength="2"
+              maxLength="40"
               required
             />
             <span
@@ -67,8 +67,8 @@ function App() {
               type="text"
               name="form__input_type_job"
               id="form__input_type_job"
-              minlength="2"
-              maxlength="200"
+              minLength="2"
+              maxLength="200"
               required
             />
             <span
@@ -95,8 +95,8 @@ function App() {
               name="form__input_type_place"
               placeholder="Название"
               id="form__input_type_place"
-              minlength="2"
-              maxlength="30"
+              minLength="2"
+              maxLength="30"
               required
             />
             <span
@@ -168,21 +168,21 @@ function App() {
         }
       />
 
-      <template class="template-element">
-        <article class="element">
-          <img class="element__image" src="#" alt="alt" />
-          <h2 class="element__title"></h2>
+      <template className="template-element">
+        <article className="element">
+          <img className="element__image" src="#" alt="alt" />
+          <h2 className="element__title"></h2>
           <button
-            class="element__delete"
+            className="element__delete"
             type="button"
             aria-label="Удалить"
           ></button>
           <button
-            class="element__like"
+            className="element__like"
             type="button"
             aria-label="Нравится"
           ></button>
-          <p class="element__like-counter"></p>
+          <p className="element__like-counter"></p>
         </article>
       </template>
     </div>

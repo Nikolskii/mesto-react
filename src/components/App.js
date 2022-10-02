@@ -1,34 +1,48 @@
+import { useState } from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import '../index.css';
 
-// function handleEditAvatarClick() {
-//   document
-//     .querySelector('.popup_purpose_update-avatar')
-//     .classList.add('popup_opened');
-// }
-
-// function handleEditProfileClick() {
-//   document
-//     .querySelector('.popup_purpose_edit-profile')
-//     .classList.add('popup_opened');
-// }
-
-// function handleAddPlaceClick() {
-//   document
-//     .querySelector('.popup_purpose_add-card')
-//     .classList.add('popup_opened');
-// }
-
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+      />
       <Footer />
+      {/* Попап редактирования профиля */}
       <PopupWithForm
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
         title="Редактировать профиль"
         name="edit-profile"
         children={
@@ -67,7 +81,10 @@ function App() {
           </fieldset>
         }
       />
+      {/* Попап добавления карточки */}
       <PopupWithForm
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         title="Новое место"
         name="add-card"
         children={
@@ -109,7 +126,10 @@ function App() {
           </fieldset>
         }
       />
+      {/* Попап редактирования аватара */}
       <PopupWithForm
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
         title="Обновить аватар"
         name="update-avatar"
         children={
@@ -137,6 +157,7 @@ function App() {
           </fieldset>
         }
       />
+      {/* Попап подтверждения */}
       <PopupWithForm
         title="Вы уверены?"
         name="submit"

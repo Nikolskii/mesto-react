@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = useState('');
@@ -60,6 +61,10 @@ function Main(props) {
 
       <section className="elements" aria-label="Места">
         {cards.map((card) => {
+          return <Card data={card} key={card._id} />;
+        })}
+
+        {/* {cards.map((card) => {
           return (
             <article className="element" key={card._id}>
               <img className="element__image" src={card.link} alt={card.name} />
@@ -81,7 +86,7 @@ function Main(props) {
               <p className="element__like-counter">{card.likes.length}</p>
             </article>
           );
-        })}
+        })} */}
       </section>
     </main>
   );

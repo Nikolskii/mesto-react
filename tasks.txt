@@ -1,0 +1,3 @@
+удалить комментарий в page.css
+
+удалить profileAvatar в main

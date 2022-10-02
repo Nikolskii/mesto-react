@@ -175,25 +175,6 @@ function App() {
           </button>
         }
       />
-
-      {/* Шаблон карточки */}
-      <template className="template-element">
-        <article className="element">
-          <img className="element__image" src="#" alt="alt" />
-          <h2 className="element__title"></h2>
-          <button
-            className="element__delete"
-            type="button"
-            aria-label="Удалить"
-          ></button>
-          <button
-            className="element__like"
-            type="button"
-            aria-label="Нравится"
-          ></button>
-          <p className="element__like-counter"></p>
-        </article>
-      </template>
     </div>
   );
 }

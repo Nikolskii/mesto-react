@@ -6,12 +6,14 @@ import PopupWithForm from './PopupWithForm';
 import '../index.css';
 
 function App() {
+  // Состояния попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
+  // Обработчики состояния попапов
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -33,12 +35,15 @@ function App() {
   return (
     <div className="page">
       <Header />
+
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
       />
+
       <Footer />
+
       {/* Попап редактирования профиля */}
       <PopupWithForm
         isOpen={isEditProfilePopupOpen}
@@ -81,6 +86,7 @@ function App() {
           </fieldset>
         }
       />
+
       {/* Попап добавления карточки */}
       <PopupWithForm
         isOpen={isAddPlacePopupOpen}
@@ -126,6 +132,7 @@ function App() {
           </fieldset>
         }
       />
+
       {/* Попап редактирования аватара */}
       <PopupWithForm
         isOpen={isEditAvatarPopupOpen}
@@ -157,6 +164,7 @@ function App() {
           </fieldset>
         }
       />
+
       {/* Попап подтверждения */}
       <PopupWithForm
         title="Вы уверены?"
@@ -168,6 +176,7 @@ function App() {
         }
       />
 
+      {/* Шаблон карточки */}
       <template className="template-element">
         <article className="element">
           <img className="element__image" src="#" alt="alt" />

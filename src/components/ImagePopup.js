@@ -9,6 +9,7 @@ function ImagePopup() {
           <img className="popup__image" src="#" alt="alt" />
           <figcaption className="popup__caption"></figcaption>
         </figure>
+
         <button
           className="popup__close-button"
           type="button"

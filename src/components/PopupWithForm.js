@@ -1,3 +1,5 @@
+import { Children } from 'react';
+
 function PopupWithForm(props) {
   return (
     <section
@@ -15,6 +17,14 @@ function PopupWithForm(props) {
           noValidate
         >
           {props.children}
+
+          <button
+            className="form__button"
+            type="submit"
+            value={props.buttonText}
+          >
+            {props.buttonText}
+          </button>
         </form>
 
         <button

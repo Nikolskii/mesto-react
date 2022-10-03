@@ -14,7 +14,7 @@ function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
-  const [selectedCard, setSelectedCard] = useState('');
+  const [selectedCard, setSelectedCard] = useState({});
 
   // Обработчики состояния попапов
   function handleEditProfileClick() {
@@ -37,7 +37,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({});
   }
 
   return (
@@ -59,42 +59,39 @@ function App() {
         onClose={closeAllPopups}
         title="Редактировать профиль"
         name="edit-profile"
-        children={
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_name"
-              placeholder="Имя пользователя"
-              type="text"
-              name="form__input_type_name"
-              id="form__input_type_name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_name-error"
-            ></span>
-            <input
-              className="form__input form__input_type_job"
-              placeholder="Краткое описание"
-              type="text"
-              name="form__input_type_job"
-              id="form__input_type_job"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_job-error"
-            ></span>
-            <button className="form__button" type="submit" value="Сохранить">
-              Сохранить
-            </button>
-          </fieldset>
-        }
-      />
+        buttonText="Сохранить"
+      >
+        <fieldset className="form__fieldset">
+          <input
+            className="form__input form__input_type_name"
+            placeholder="Имя пользователя"
+            type="text"
+            name="form__input_type_name"
+            id="form__input_type_name"
+            minLength="2"
+            maxLength="40"
+            required
+          />
+          <span
+            className="form__input-error"
+            id="form__input_type_name-error"
+          ></span>
+          <input
+            className="form__input form__input_type_job"
+            placeholder="Краткое описание"
+            type="text"
+            name="form__input_type_job"
+            id="form__input_type_job"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span
+            className="form__input-error"
+            id="form__input_type_job-error"
+          ></span>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Попап добавления карточки */}
       <PopupWithForm
@@ -102,45 +99,37 @@ function App() {
         onClose={closeAllPopups}
         title="Новое место"
         name="add-card"
-        children={
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_place"
-              type="text"
-              name="form__input_type_place"
-              placeholder="Название"
-              id="form__input_type_place"
-              minLength="2"
-              maxLength="30"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_place-error"
-            ></span>
-            <input
-              className="form__input form__input_type_link"
-              type="url"
-              name="form__input_type_link"
-              placeholder="Ссылка на картинку"
-              id="form__input_type_link"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_link-error"
-            ></span>
-            <button
-              className="form__button form__button_inactive"
-              type="submit"
-              value="Создать"
-              disabled
-            >
-              Создать
-            </button>
-          </fieldset>
-        }
-      />
+        buttonText="Создать"
+      >
+        <fieldset className="form__fieldset">
+          <input
+            className="form__input form__input_type_place"
+            type="text"
+            name="form__input_type_place"
+            placeholder="Название"
+            id="form__input_type_place"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span
+            className="form__input-error"
+            id="form__input_type_place-error"
+          ></span>
+          <input
+            className="form__input form__input_type_link"
+            type="url"
+            name="form__input_type_link"
+            placeholder="Ссылка на картинку"
+            id="form__input_type_link"
+            required
+          />
+          <span
+            className="form__input-error"
+            id="form__input_type_link-error"
+          ></span>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Попап редактирования аватара */}
       <PopupWithForm
@@ -148,42 +137,26 @@ function App() {
         onClose={closeAllPopups}
         title="Обновить аватар"
         name="update-avatar"
-        children={
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_avatar"
-              type="url"
-              name="form__input_type_avatar"
-              placeholder="Ссылка на картинку"
-              id="form__input_type_avatar"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_avatar-error"
-            ></span>
-            <button
-              className="form__button form__button_inactive"
-              type="submit"
-              value="Сохранить"
-              disabled
-            >
-              Сохранить
-            </button>
-          </fieldset>
-        }
-      />
+        buttonText="Сохранить"
+      >
+        <fieldset className="form__fieldset">
+          <input
+            className="form__input form__input_type_avatar"
+            type="url"
+            name="form__input_type_avatar"
+            placeholder="Ссылка на картинку"
+            id="form__input_type_avatar"
+            required
+          />
+          <span
+            className="form__input-error"
+            id="form__input_type_avatar-error"
+          ></span>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Попап подтверждения */}
-      <PopupWithForm
-        title="Вы уверены?"
-        name="submit"
-        children={
-          <button className="popup__button" type="submit" value="Да">
-            Да
-          </button>
-        }
-      />
+      <PopupWithForm title="Вы уверены?" name="submit" buttonText="Да" />
 
       {/* Попап полноразмерного изображения */}
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />

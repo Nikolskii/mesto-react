@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 import '../index.css';
 
 function App() {
@@ -12,6 +13,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const [selectedCard, setSelectedCard] = useState('');
 
   // Обработчики состояния попапов
   function handleEditProfileClick() {
@@ -26,10 +29,15 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleCardClick(data) {
+    setSelectedCard(data);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -40,6 +48,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
 
       <Footer />
@@ -175,6 +184,9 @@ function App() {
           </button>
         }
       />
+
+      {/* Попап полноразмерного изображения */}
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }

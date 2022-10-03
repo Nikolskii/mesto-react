@@ -61,32 +61,10 @@ function Main(props) {
 
       <section className="elements" aria-label="Места">
         {cards.map((card) => {
-          return <Card data={card} key={card._id} />;
-        })}
-
-        {/* {cards.map((card) => {
           return (
-            <article className="element" key={card._id}>
-              <img className="element__image" src={card.link} alt={card.name} />
-
-              <h2 className="element__title">{card.name}</h2>
-
-              <button
-                className="element__delete"
-                type="button"
-                aria-label="Удалить"
-              ></button>
-
-              <button
-                className="element__like"
-                type="button"
-                aria-label="Нравится"
-              ></button>
-
-              <p className="element__like-counter">{card.likes.length}</p>
-            </article>
+            <Card onCardClick={props.onCardClick} data={card} key={card._id} />
           );
-        })} */}
+        })}
       </section>
     </main>
   );

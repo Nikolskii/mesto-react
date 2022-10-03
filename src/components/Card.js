@@ -1,7 +1,16 @@
-function Card({ data }) {
+function Card({ data, onCardClick }) {
+  function handleClick() {
+    onCardClick(data);
+  }
+
   return (
     <article className="element">
-      <img className="element__image" src={data.link} alt={data.name} />
+      <img
+        className="element__image"
+        src={data.link}
+        alt={data.name}
+        onClick={handleClick}
+      />
 
       <h2 className="element__title">{data.name}</h2>
 

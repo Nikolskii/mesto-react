@@ -1,1 +1,2 @@
-  "homepage": "https://nikolskii.github.io/mesto-react/"
+1. "homepage": "https://nikolskii.github.io/mesto-react/"
+2. заменить название классов с element

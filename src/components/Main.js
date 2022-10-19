@@ -19,6 +19,24 @@ function Main(props) {
       });
   }, []);
 
+  function handleCardClick(card) {
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+    // api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    //   setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    // });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -55,7 +73,13 @@ function Main(props) {
       <section className="elements" aria-label="Места">
         {cards.map((card) => {
           return (
-            <Card onCardClick={props.onCardClick} data={card} key={card._id} />
+            <Card
+              onCardClick={props.onCardClick}
+              onCardLike={handleCardClick}
+              onCardDelete={handleCardDelete}
+              data={card}
+              key={card._id}
+            />
           );
         })}
       </section>

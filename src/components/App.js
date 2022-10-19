@@ -3,6 +3,7 @@ import { api } from '../utils/api';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -70,44 +71,10 @@ function App() {
         <Footer />
 
         {/* Попап редактирования профиля */}
-        <PopupWithForm
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          title="Редактировать профиль"
-          name="edit-profile"
-          buttonText="Сохранить"
-        >
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_name"
-              placeholder="Имя пользователя"
-              type="text"
-              name="form__input_type_name"
-              id="form__input_type_name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_name-error"
-            ></span>
-            <input
-              className="form__input form__input_type_job"
-              placeholder="Краткое описание"
-              type="text"
-              name="form__input_type_job"
-              id="form__input_type_job"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_job-error"
-            ></span>
-          </fieldset>
-        </PopupWithForm>
+        />
 
         {/* Попап добавления карточки */}
         <PopupWithForm

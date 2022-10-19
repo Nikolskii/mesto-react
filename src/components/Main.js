@@ -21,9 +21,10 @@ function Main(props) {
 
   function handleCardClick(card) {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
-    // api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-    //   setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    // });
+
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
+    });
   }
 
   function handleCardDelete(card) {

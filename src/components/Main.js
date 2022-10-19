@@ -3,7 +3,7 @@ import { api } from '../utils/api';
 import Card from './Card';
 import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
 
-function Main(props) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const [cards, setCards] = useState([]);
@@ -49,7 +49,7 @@ function Main(props) {
 
         <button
           className="profile__update-button"
-          onClick={props.onEditAvatar}
+          onClick={onEditAvatar}
         ></button>
 
         <h1 className="profile__title">{currentUser.name}</h1>
@@ -58,7 +58,7 @@ function Main(props) {
           className="profile__edit-button"
           type="button"
           aria-label="Редактировать профиль"
-          onClick={props.onEditProfile}
+          onClick={onEditProfile}
         ></button>
 
         <p className="profile__subtitle">{currentUser.about}</p>
@@ -67,7 +67,7 @@ function Main(props) {
           className="profile__add-button"
           type="button"
           aria-label="Добавить фотографию"
-          onClick={props.onAddPlace}
+          onClick={onAddPlace}
         ></button>
       </section>
 
@@ -75,7 +75,7 @@ function Main(props) {
         {cards.map((card) => {
           return (
             <Card
-              onCardClick={props.onCardClick}
+              onCardClick={onCardClick}
               onCardLike={handleCardClick}
               onCardDelete={handleCardDelete}
               card={card}

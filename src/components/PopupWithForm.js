@@ -1,29 +1,19 @@
 import { Children } from 'react';
 
-function PopupWithForm(props) {
+function PopupWithForm({ name, title, children, buttonText, isOpen, onClose }) {
   return (
     <section
-      className={`popup popup_purpose_${props.name} ${
-        props.isOpen && 'popup_opened'
-      }`}
-      aria-label={props.title}
+      className={`popup popup_purpose_${name} ${isOpen && 'popup_opened'}`}
+      aria-label={title}
     >
       <div className="popup__container">
-        <h2 className="popup__title">{props.title}</h2>
+        <h2 className="popup__title">{title}</h2>
 
-        <form
-          className={`form form_purpose_${props.name}`}
-          name={props.name}
-          noValidate
-        >
-          {props.children}
+        <form className={`form form_purpose_${name}`} name={name} noValidate>
+          {children}
 
-          <button
-            className="form__button"
-            type="submit"
-            value={props.buttonText}
-          >
-            {props.buttonText}
+          <button className="form__button" type="submit" value={buttonText}>
+            {buttonText}
           </button>
         </form>
 
@@ -31,7 +21,7 @@ function PopupWithForm(props) {
           className="popup__close-button"
           type="button"
           aria-label="Закрыть"
-          onClick={props.onClose}
+          onClick={onClose}
         ></button>
       </div>
     </section>

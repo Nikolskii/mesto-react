@@ -1,17 +1,35 @@
+import React from 'react';
 import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { CurrentUserContext } from '../../src/contexts/CurrentUserContext';
 
-function EditProfilePopup({ isOpen, onClose }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+
+    setDescription(currentUser.about);
+  }, [currentUser]);
+
   const [name, setName] = useState('');
 
   const [description, setDescription] = useState('');
 
-  function handleChange(event) {}
+  function handleSubmit(evt) {
+    evt.preventDefault();
+
+    onUpdateUser({
+      name,
+      about: description,
+    });
+  }
 
   return (
     <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
       title="Редактировать профиль"
       name="edit-profile"
       buttonText="Сохранить"
@@ -20,7 +38,9 @@ function EditProfilePopup({ isOpen, onClose }) {
         <input
           className="form__input form__input_type_name"
           value={name}
-          onChange={handleChange}
+          onChange={(evt) => {
+            setName(evt.target.value);
+          }}
           placeholder="Имя пользователя"
           type="text"
           name="form__input_type_name"
@@ -36,7 +56,9 @@ function EditProfilePopup({ isOpen, onClose }) {
         <input
           className="form__input form__input_type_job"
           value={description}
-          onChange={handleChange}
+          onChange={(evt) => {
+            setDescription(evt.target.value);
+          }}
           placeholder="Краткое описание"
           type="text"
           name="form__input_type_job"

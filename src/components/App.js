@@ -23,6 +23,19 @@ function App() {
       });
   }, []);
 
+  function handleUpdateUser(userData) {
+    api
+      .updateUserInfo(userData)
+      .then((userData) => {
+        setCurrentUser(userData);
+
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // Состояния попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 
@@ -74,6 +87,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
 
         {/* Попап добавления карточки */}

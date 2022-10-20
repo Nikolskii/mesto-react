@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { api } from '../utils/api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditAvatarPopup from './EditAvatarPopup';
 import '../index.css';
 
 function App() {
   const [currentUser, setCurrentUser] = useState('');
 
+  // Получение данных пользователя
   useEffect(() => {
     api
       .getUserInfo()
@@ -23,6 +25,7 @@ function App() {
       });
   }, []);
 
+  // Обработчик submit формы редактирования профиля
   function handleUpdateUser(userData) {
     api
       .updateUserInfo(userData)
@@ -129,28 +132,10 @@ function App() {
         </PopupWithForm>
 
         {/* Попап редактирования аватара */}
-        <PopupWithForm
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          title="Обновить аватар"
-          name="update-avatar"
-          buttonText="Сохранить"
-        >
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_avatar"
-              type="url"
-              name="form__input_type_avatar"
-              placeholder="Ссылка на картинку"
-              id="form__input_type_avatar"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_avatar-error"
-            ></span>
-          </fieldset>
-        </PopupWithForm>
+        />
 
         {/* Попап подтверждения */}
         <PopupWithForm title="Вы уверены?" name="submit" buttonText="Да" />

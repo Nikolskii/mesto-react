@@ -9,6 +9,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import SubmitDeletePopup from './SubmitDeletePopup';
 import '../index.css';
 
 function App() {
@@ -16,12 +17,16 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
+  const [deletedCard, setDeletedCard] = useState(null);
+
   // Состояния попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const [isSubmitDeletePopupOpen, setIsSubmitDeletePopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -62,6 +67,12 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleSubmitDeleteClick(card) {
+    setIsSubmitDeletePopupOpen(true);
+
+    setDeletedCard(card);
+  }
+
   function handleCardClick(data) {
     setSelectedCard(data);
   }
@@ -70,6 +81,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsSubmitDeletePopupOpen(false);
     setSelectedCard({});
   }
 
@@ -130,6 +142,7 @@ function App() {
       .deleteCard(card._id)
       .then(() => {
         setCards((cards) => cards.filter((c) => c._id !== card._id));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -145,10 +158,10 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onSubmitDelete={handleSubmitDeleteClick}
           cards={cards}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
         />
 
         <Footer />
@@ -171,7 +184,12 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
         />
 
-        {/* <PopupWithForm title="Вы уверены?" name="submit" buttonText="Да" /> */}
+        <SubmitDeletePopup
+          isOpen={isSubmitDeletePopupOpen}
+          onClose={closeAllPopups}
+          onSubmitDelete={handleCardDelete}
+          card={deletedCard}
+        />
 
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>

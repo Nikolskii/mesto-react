@@ -6,10 +6,10 @@ function Main({
   onEditProfile,
   onAddPlace,
   onEditAvatar,
+  onSubmitDelete,
   cards,
   onCardClick,
   onCardLike,
-  onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -52,7 +52,7 @@ function Main({
             <Card
               onCardClick={onCardClick}
               onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
+              onSubmitDelete={onSubmitDelete}
               card={card}
               key={card._id}
             />

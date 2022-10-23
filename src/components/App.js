@@ -12,9 +12,30 @@ import AddPlacePopup from './AddPlacePopup';
 import '../index.css';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState('');
+
   const [cards, setCards] = useState([]);
 
-  const [currentUser, setCurrentUser] = useState('');
+  // Состояния попапов
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const [selectedCard, setSelectedCard] = useState({});
+
+  // Получение данных пользователя
+  useEffect(() => {
+    api
+      .getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   // Получение данных карточек
   useEffect(() => {
@@ -27,6 +48,58 @@ function App() {
         console.log(error);
       });
   }, []);
+
+  // Обработчики состояния попапов
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleCardClick(data) {
+    setSelectedCard(data);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard({});
+  }
+
+  // Обработчик submit формы редактирования профиля
+  function handleUpdateUser(userData) {
+    api
+      .updateUserInfo(userData)
+      .then((userData) => {
+        setCurrentUser(userData);
+
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // Обработчик submit формы обновления аватара
+  function handleUpdateAvatar(avatar) {
+    api
+      .updateUserAvatar(avatar)
+      .then(() => {
+        setCurrentUser({ ...currentUser, avatar: avatar });
+
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   // Обработчик submit формы добавления карточки
   function handeAddPlaceSubmit({ name, link }) {
@@ -63,79 +136,6 @@ function App() {
       });
   }
 
-  // Получение данных пользователя
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // Обработчик submit формы редактирования профиля
-  function handleUpdateUser(userData) {
-    api
-      .updateUserInfo(userData)
-      .then((userData) => {
-        setCurrentUser(userData);
-
-        closeAllPopups();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  // Обработчик submit формы обновления аватара
-  function handleUpdateAvatar(avatar) {
-    api
-      .updateUserAvatar(avatar)
-      .then(() => {
-        setCurrentUser({ ...currentUser, avatar: avatar });
-
-        closeAllPopups();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  // Состояния попапов
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-
-  const [selectedCard, setSelectedCard] = useState({});
-
-  // Обработчики состояния попапов
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-
-  function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true);
-  }
-
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-
-  function handleCardClick(data) {
-    setSelectedCard(data);
-  }
-
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setSelectedCard({});
-  }
-
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -153,31 +153,26 @@ function App() {
 
         <Footer />
 
-        {/* Попап редактирования профиля */}
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
 
-        {/* Попап добавления карточки */}
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handeAddPlaceSubmit}
         />
 
-        {/* Попап редактирования аватара */}
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
 
-        {/* Попап подтверждения */}
-        <PopupWithForm title="Вы уверены?" name="submit" buttonText="Да" />
+        {/* <PopupWithForm title="Вы уверены?" name="submit" buttonText="Да" /> */}
 
-        {/* Попап полноразмерного изображения */}
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </div>

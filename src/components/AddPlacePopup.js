@@ -6,13 +6,18 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
   const [link, setLink] = useState('');
 
+  const [buttonText, setButtonText] = useState('');
+
   React.useEffect(() => {
     setName('');
     setLink('');
+    setButtonText('Создать');
   }, [isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+
+    setButtonText('Сохранение...');
 
     onAddPlace({ name, link });
   }
@@ -24,7 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onSubmit={handleSubmit}
       title="Новое место"
       name="add-card"
-      buttonText="Создать"
+      buttonText={buttonText}
     >
       <fieldset className="form__fieldset">
         <input

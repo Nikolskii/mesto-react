@@ -8,9 +8,61 @@ import EditProfilePopup from './EditProfilePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import '../index.css';
 
 function App() {
+  // Состояние карточек
+  const [cards, setCards] = useState([]);
+
+  // Получение карточек
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // Обработчик submit формы добавления карточки
+  function handeAddPlaceSubmit({ name, link }) {
+    api
+      .addCard(name, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Обработчик лайка карточки
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  // Обработчик удаления карточки
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Состояние информации и пользователе
   const [currentUser, setCurrentUser] = useState('');
 
   // Получение данных пользователя
@@ -43,7 +95,7 @@ function App() {
   function handleUpdateAvatar(avatar) {
     api
       .updateUserAvatar(avatar)
-      .then((res) => {
+      .then(() => {
         setCurrentUser({ ...currentUser, avatar: avatar });
 
         closeAllPopups();
@@ -95,7 +147,10 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          cards={cards}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
@@ -108,42 +163,11 @@ function App() {
         />
 
         {/* Попап добавления карточки */}
-        <PopupWithForm
+        <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-          title="Новое место"
-          name="add-card"
-          buttonText="Создать"
-        >
-          <fieldset className="form__fieldset">
-            <input
-              className="form__input form__input_type_place"
-              type="text"
-              name="form__input_type_place"
-              placeholder="Название"
-              id="form__input_type_place"
-              minLength="2"
-              maxLength="30"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_place-error"
-            ></span>
-            <input
-              className="form__input form__input_type_link"
-              type="url"
-              name="form__input_type_link"
-              placeholder="Ссылка на картинку"
-              id="form__input_type_link"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="form__input_type_link-error"
-            ></span>
-          </fieldset>
-        </PopupWithForm>
+          onAddPlace={handeAddPlaceSubmit}
+        />
 
         {/* Попап редактирования аватара */}
         <EditAvatarPopup

@@ -12,10 +12,11 @@ import AddPlacePopup from './AddPlacePopup';
 import '../index.css';
 
 function App() {
-  // Состояние карточек
   const [cards, setCards] = useState([]);
 
-  // Получение карточек
+  const [currentUser, setCurrentUser] = useState('');
+
+  // Получение данных карточек
   useEffect(() => {
     api
       .getInitialCards()
@@ -61,9 +62,6 @@ function App() {
         console.log(err);
       });
   }
-
-  // Состояние информации и пользователе
-  const [currentUser, setCurrentUser] = useState('');
 
   // Получение данных пользователя
   useEffect(() => {

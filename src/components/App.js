@@ -39,6 +39,20 @@ function App() {
       });
   }
 
+  // Обработчик submit формы обновления аватара
+  function handleUpdateAvatar(avatar) {
+    api
+      .updateUserAvatar(avatar)
+      .then((res) => {
+        setCurrentUser({ ...currentUser, avatar: avatar });
+
+        closeAllPopups();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   // Состояния попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 
@@ -135,6 +149,7 @@ function App() {
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
 
         {/* Попап подтверждения */}

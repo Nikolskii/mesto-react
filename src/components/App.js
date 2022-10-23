@@ -14,20 +14,14 @@ import '../index.css';
 
 function App() {
   const [currentUser, setCurrentUser] = useState('');
-
   const [cards, setCards] = useState([]);
-
   const [deletedCard, setDeletedCard] = useState(null);
 
   // Состояния попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-
   const [isSubmitDeletePopupOpen, setIsSubmitDeletePopupOpen] = useState(false);
-
   const [selectedCard, setSelectedCard] = useState({});
 
   // Получение данных пользователя
@@ -131,9 +125,16 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((cards) =>
+          cards.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // Обработчик удаления карточки

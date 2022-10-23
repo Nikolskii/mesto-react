@@ -37,7 +37,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       <fieldset className="form__fieldset">
         <input
           className="form__input form__input_type_name"
-          value={name}
+          value={name || ''}
           onChange={(evt) => {
             setName(evt.target.value);
           }}
@@ -55,7 +55,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         ></span>
         <input
           className="form__input form__input_type_job"
-          value={description}
+          value={description || ''}
           onChange={(evt) => {
             setDescription(evt.target.value);
           }}
